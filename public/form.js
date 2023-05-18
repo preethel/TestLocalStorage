@@ -2,6 +2,7 @@ const formE1 = document.querySelector('.form');
 
 
 function validateForm(event){
+  
     event.preventDefault()
 
     var fnInput = document.getElementById('fname');
@@ -57,42 +58,50 @@ function validateForm(event){
         return false;
     }
     
-    localStorage.setItem("first name", fname)
-    localStorage.setItem("last name", lname)
-    localStorage.setItem("email", email)
-    localStorage.setItem("phone", phone)
-    localStorage.setItem("date", date)
-    
-  var form = event.target;
-  var formData = new FormData(form);
-
-  // Convert form data to JSON object
-  var jsonObject = {};
-  for (var [key, value] of formData.entries()) {
-    jsonObject[key] = value;
-  }
-
-  // Send the data to the server
+    var formDataArray = [];
+    formDataArray.push({
+      firstName: fname,
+      lastName: lname,
+      email: email,
+      phone: phone,
+      dob: date
+    });
+  
+    // Check if existing data is already stored in local storage
+    var existingData = localStorage.getItem('formEntries');
+    var existingDataArray = existingData ? JSON.parse(existingData) : [];
+  
+    // Add the new form entries to the existing data
+    existingDataArray.push(...formDataArray);
+  
+    // Store the updated data in local storage
+    localStorage.setItem('formEntries', JSON.stringify(existingDataArray));
+    // Send the data to the server
   fetch('/submit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(jsonObject)
+    body: JSON.stringify(formDataArray)
   })
     .then(function(response) {
       if (response.ok) {
+        // Display a success alert message
         alert('Form data submitted successfully!');
       } else {
-        alert('Form data submission failed!');
+        // Display a failure alert message
+        alert('Failed to submit form data!');
       }
     })
     .catch(function(error) {
       console.error('Error:', error);
+      // Display a failure alert message
+      alert('Failed to submit form data!');
     });
 
+    // Rest of your existing code...
 
-}
+  }
 
 
 const isEmailValid = (email) => {
