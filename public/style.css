@@ -30,3 +30,16 @@ body{
 }
 
 .btn{border-radius: 0rem !important;}
+
+.container{
+  width: 100%;
+  max-width: 1200px; /* Adjust the value as per your requirement */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px;
+}
+
+.box {
+flex: 1;
+padding: 20px;
+border: 1px solid #000;
+}
