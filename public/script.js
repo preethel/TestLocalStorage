@@ -131,53 +131,6 @@ function showList() {
     row.appendChild(actionsCell);
     userList.appendChild(row);
   });
-  // // Create table rows for each entry
-  // existingData.forEach(function (entry, index) {
-  //   var row = document.createElement("tr");
-  //   var nameCell = document.createElement("td");
-  //   var fname = entry.fristName;
-  //   var lname = entry.lastName;
-
-  //   var name = fname.concat(" " + lname);
-
-  //   nameCell.textContent = name;
-  //   var emailCell = document.createElement("td");
-  //   emailCell.textContent = entry.email;
-  //   var phoneCell = document.createElement("td");
-  //   phoneCell.textContent = entry.phone;
-  //   var dobCell = document.createElement("td");
-  //   dobCell.textContent = entry.dateOfBrith;
-  //   var genderCell = document.createElement("td");
-  //   genderCell.textContent = entry.gender;
-
-  //   var actionsCell = document.createElement("td");
-  //   var editButton = document.createElement("button");
-  //   editButton.textContent = "Edit";
-  //   editButton.classList.add("btn", "btn-primary", "mr-2");
-  //   editButton.setAttribute("data-toggle", "modal");
-  //   editButton.setAttribute("data-target", "#editModal");
-  //   editButton.addEventListener("click", function () {
-  //     openEditModal(index);
-  //   });
-
-  //   var deleteButton = document.createElement("button");
-  //   deleteButton.textContent = "Delete";
-  //   deleteButton.classList.add("btn", "btn-danger");
-  //   deleteButton.addEventListener("click", function () {
-  //     deleteEntry(index);
-  //   });
-
-  //   actionsCell.appendChild(editButton);
-  //   actionsCell.appendChild(deleteButton);
-
-  //   row.appendChild(nameCell);
-  //   row.appendChild(emailCell);
-  //   row.appendChild(phoneCell);
-  //   row.appendChild(dobCell);
-  //   row.appendChild(genderCell);
-  //   row.appendChild(actionsCell);
-  //   userList.appendChild(row);
-  // });
 }
 
 // Function to open the edit modal with pre-filled data
@@ -356,27 +309,10 @@ function submitForm(event) {
         }
       });
 
+    var checkValid = 1;
+
+
     // Create new entry object
-    var entry = {
-        fristName : fname,
-        lastName : lname,
-        email : email,
-        dateOfBrith : date,
-        phone : phone,
-        gender : gender,
-        comment : comment,
-        password : password
-      };
-
-      var checkValid = 1;
-    
-      //Regular Expression validation 
-      
-      
-
-    // Retrieve existing data from localStorage or initialize empty array
-    var existingData = JSON.parse(localStorage.getItem("formData")) || [];
-
 
     if (validateRegularExpression(fname)) {
       //  proceed with form submission or other actions
@@ -416,6 +352,23 @@ function submitForm(event) {
         alert("Please fill correctly.");
     }
     else{
+
+    var entry = {
+      fristName : fname,
+      lastName : lname,
+      email : email,
+      dateOfBrith : date,
+      phone : phone,
+      gender : gender,
+      comment : comment,
+      password : password
+    };    
+      //Regular Expression validation 
+      
+      
+
+    // Retrieve existing data from localStorage or initialize empty array
+    var existingData = JSON.parse(localStorage.getItem("formData")) || [];
 
     // Add new entry to existing data
     existingData.push(entry);
