@@ -33,6 +33,7 @@
     </style>
 </head>
 <body>
+<!---------Navigation Bar----------->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">EMS</a>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -78,6 +79,7 @@
           <div class="form-group">
             <label for="editDate">Date</label>
             <input type="text" class="form-control" id="editDate" placeholder="Enter date">
+           
           </div>
           <div class="form-group">
             <label for="editGender">Gender</label>
@@ -102,14 +104,17 @@
   </div>
 </div>
 
- 
+<!------Body Container --------->
   <div class="container content">
-    <div id="registration" class="row">
-      <div class="col-12 col-md-8">
-        
-      </div>
+    <div  id="registration">
 
-      <div class="col-6 col-md-4">
+    <div class="row" style="display: flex; ">
+      <div id="left" class="col-md-6" style="flex: 1; margin: auto;">
+        <h1 style="font-family:Ink Free; text-align: center; font-size:100px; color: #ff1e00;">Welcome to our Website!</h1>
+        <p style="font-family:'MV Boli'; text-align: center; font-size:50px; color: #f0f0f0;">To know about our update stay with us!</p>
+      </div>
+      <div style="width: 1px; background-color: #d8d8d8d0;"></div>
+      <div id="right" class="col-md-6" style="flex: 1; background-color: #fda59a;">
         <h5>Employee Management System</h5>
         <hr>
         
@@ -128,11 +133,11 @@
           </div>
   
           <div class="form-group">
-            <label for="inputEmail4">Email</label>
+            <label for="inputEmail">Email</label>
             <input type="email" name="email" class="form-control" id="email" placeholder="Email">
           </div>
           <div class="form-group">
-            <label for="date">Date</label>
+            <label for="date">Birth Date</label>
             <div class="input-group">
               <input type="text" name="date" class="form-control" id="date"  class="date form-control" placeholder="Enter date">
               <span class="input-group-text" >
@@ -173,9 +178,16 @@
     </div>
     
   
+  </div>
 
+<!-----------Registered Employee List------------>
   <div id="list" style="display: none;">
     <h5>Registered Employee</h5>
+    <hr>
+    <div class="search-box">
+      <input type="text" class="form-control" id="searchInput" placeholder="Search by name, email, mobile, gender, date of birth" oninput="searchNames()" />
+    </div>
+    <table class="table">
     <table class="table">
       <thead>
         <tr>
@@ -199,8 +211,11 @@
     $('#date').datepicker({
     format : 'dd-mm-yy',
     autoclose : true,
-  
-});
+    });
+    $('#editDate').datepicker({
+    format : 'dd-mm-yy',
+    autoclose : true,
+    });
 </script>
 </body>
 </html>
