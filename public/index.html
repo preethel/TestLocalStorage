@@ -34,7 +34,7 @@
     <h5>Employee Management System</h5>
     <hr>
 
-      <form id="signup" action="/submit" onsubmit="return validateForm(event)" class="form" method="post">
+      <form id="myForm" onsubmit="submitForm(event)">
         <div class="form-row">
           
           <div class="form-group col-md-6">
@@ -75,7 +75,7 @@
       <button type="submit" class="btn btn-block btn-danger" value="submit">Submit</button>
   </form>
   </div>
-  <script type="text/javascript" src="form.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 
 <script type="text/javascript">
     $('#date').datepicker({
