@@ -165,24 +165,24 @@ function showList() {
   // Retrieve data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
 
-  // Filter data based on search input
-  var searchInput = document.getElementById("searchInput");
-  var filter = searchInput.value.toLowerCase();
-  var filteredData = existingData.filter(function (entry) {
-    var fullName = entry.fristName.toLowerCase() + " " + entry.lastName.toLowerCase();
-    var email = entry.email.toLowerCase();
-    var phone = entry.phone.toLowerCase();
-    var dob = entry.dateOfBrith.toLowerCase();
-    var gender = entry.gender.toLowerCase();
+  // // Filter data based on search input
+  // var searchInput = document.getElementById("searchInput");
+  // var filter = searchInput.value.toLowerCase();
+  // var filteredData = existingData.filter(function (entry) {
+  //   var fullName = entry.fristName.toLowerCase() + " " + entry.lastName.toLowerCase();
+  //   var email = entry.email.toLowerCase();
+  //   var phone = entry.phone.toLowerCase();
+  //   var dob = entry.dateOfBrith.toLowerCase();
+  //   var gender = entry.gender.toLowerCase();
 
-    return (
-      fullName.includes(filter) ||
-      email.includes(filter) ||
-      phone.includes(filter) ||
-      dob.includes(filter) ||
-      gender.includes(filter)
-    );
-  });
+  //   return (
+  //     fullName.includes(filter) ||
+  //     email.includes(filter) ||
+  //     phone.includes(filter) ||
+  //     dob.includes(filter) ||
+  //     gender.includes(filter)
+  //   );
+  // });
 
 
   // Clear previous entries
@@ -190,7 +190,7 @@ function showList() {
   userList.innerHTML = "";
 
   // Create table rows for each filtered entry
-  filteredData.forEach(function (entry, index) {
+  existingData.forEach(function (entry, index) {
     // existing code to create table rows
     // ...
     var row = document.createElement("tr");
@@ -362,39 +362,7 @@ function deleteEntry(id) {
   // Show the updated list
   showList();
 }
-
-// function searchNames() {
-//   var searchInput = document.getElementById("searchInput");
-//   var filter = searchInput.value.toLowerCase();
-//   var rows = document.querySelectorAll("#userList tr");
-
-//   rows.forEach(function (row) {
-//     var nameCell = row.querySelector("td:first-child");
-//     var emailCell = row.querySelector("td:nth-child(2)");
-//     var phoneCell = row.querySelector("td:nth-child(3)");
-//     var dobCell = row.querySelector("td:nth-child(4)");
-//     var genderCell = row.querySelector("td:nth-child(5)");
-
-//     var name = nameCell.textContent.toLowerCase();
-//     var email = emailCell.textContent.toLowerCase();
-//     var phone = phoneCell.textContent.toLowerCase();
-//     var dob = dobCell.textContent.toLowerCase();
-//     var gender = genderCell.textContent.toLowerCase();
-
-//     if (
-//       name.includes(filter) ||
-//       email.includes(filter) ||
-//       phone.includes(filter) ||
-//       dob.includes(filter) ||
-//       gender.includes(filter)
-//     ) {
-//       row.style.display = "";
-//     } else {
-//       row.style.display = "none";
-//     }
-//   });
-// }
-//
+//Funtion for Multiple search
 function searchNames() {
   var nameFilter = document.getElementById("nameFilter").value.toLowerCase();
   var emailFilter = document.getElementById("emailFilter").value.toLowerCase();
@@ -437,4 +405,4 @@ document.getElementById("emailFilter").addEventListener("input", searchNames);
 document.getElementById("mobileFilter").addEventListener("input", searchNames);
 document.getElementById("dobFilter").addEventListener("input", searchNames);
 document.getElementById("genderFilter").addEventListener("change", searchNames);
-document.getElementById("searchInput").addEventListener("input", searchNames);
+// document.getElementById("searchInput").addEventListener("input", searchNames);
