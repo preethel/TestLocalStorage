@@ -1,3 +1,10 @@
+//navigate for registration form 
+function showRegistration() {
+  document.getElementById("registration").style.display = "block";
+  document.getElementById("list").style.display = "none";
+}
+
+//For gender field udate the checkbox when select on male unclick unselect for female
 function updateCheckbox(checkbox) {
   var checkboxes = document.getElementsByName("gender");
 
@@ -10,44 +17,144 @@ function updateCheckbox(checkbox) {
   }
 }
 
-function searchNames() {
-  var searchInput = document.getElementById("searchInput");
-  var filter = searchInput.value.toLowerCase();
-  var rows = document.querySelectorAll("#userList tr");
+//Validation functions
+function validateRegularExpression(text) {
+  // Regular expression pattern for name validation (only allows letters, spaces, and hyphens)
+  var pattern = /^[a-zA-Z\s-\s.]+$/;
 
-  rows.forEach(function (row) {
-    var nameCell = row.querySelector("td:first-child");
-    var emailCell = row.querySelector("td:nth-child(2)");
-    var phoneCell = row.querySelector("td:nth-child(3)");
-    var dobCell = row.querySelector("td:nth-child(4)");
-    var genderCell = row.querySelector("td:nth-child(5)");
+  return pattern.test(text);
+}
 
-    var name = nameCell.textContent.toLowerCase();
-    var email = emailCell.textContent.toLowerCase();
-    var phone = phoneCell.textContent.toLowerCase();
-    var dob = dobCell.textContent.toLowerCase();
-    var gender = genderCell.textContent.toLowerCase();
+//Email Validation   
+function validateEmail(email) {
+  const emailRegex = /^[a-zA-Z0-9-_]+@[^\s@]+\.[a-zA-Z]{3,}$/;
+  return emailRegex.test(email);
+}
 
-    if (
-      name.includes(filter) ||
-      email.includes(filter) ||
-      phone.includes(filter) ||
-      dob.includes(filter) ||
-      gender.includes(filter)
-    ) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
+//Mobile validation      
+function validateMobileNumber(mobile) {
+  const mobileNumberRegex = /^01\d{9}$/;
+  return mobileNumberRegex.test(mobile);
+  //<!-- pattern="01[0-9]{9}" -->
+}
+
+//password validation
+function validatePassword(password) {
+  const passwordRegex = /^(?=.*\d)[a-zA-Z0-9]{4,}$/;
+  return passwordRegex.test(password);
+}
+
+//Registration Form Submission
+function submitForm(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get form values
+  var fnInput = document.getElementById('fname');
+  var lnInput = document.getElementById('lname');
+  var emailInput = document.getElementById('email');
+  var phoneInput = document.getElementById('number');
+  var passInput = document.getElementById('password');
+  var dateInput = document.getElementById('date');
+  var commentInput = document.getElementById('comment');
+  var gender = "";
+
+  var fname = fnInput.value.trim()
+  var lname = lnInput.value.trim()
+  var email = emailInput.value.trim()
+  var phone = phoneInput.value.trim()
+  var date = dateInput.value.trim()
+  var comment = commentInput.value.trim()
+  var password = passInput.value.trim()
+
+
+  var checkboxes = document.getElementsByName("gender");
+  checkboxes.forEach(function (checkbox) {
+    if (checkbox.checked) {
+      gender = checkbox.value;
     }
   });
+
+  var checkValid = 1;
+
+
+  // Create new entry object
+
+  if (validateRegularExpression(fname)) {
+    //  proceed with form submission or other actions
+  } else {
+    alert("Please enter a valid First name.");
+    checkValid = 0;
+  }
+  if (validateRegularExpression(lname)) {
+    //  proceed with form submission or other actions
+  } else {
+    alert("Please enter a valid Last name.");
+    checkValid = 0;
+  }
+
+  if (validateEmail(email)) {
+    //  proceed with form submission or other actions
+  } else {
+    alert("Please enter a valid email.");
+    checkValid = 0;
+  }
+
+  if (validateMobileNumber(phone)) {
+    // proceed with form submission or other actions
+  } else {
+    alert("Please enter a valid Mobile No. start with 01.");
+    checkValid = 0;
+  }
+  if (validatePassword(password)) {
+    // proceed with form submission or other actions
+  } else {
+    alert("Please enter password Strongly!");
+    checkValid = 0;
+  }
+
+
+  if (checkValid != 1) {
+    alert("Please fill correctly.");
+  }
+  else {
+
+    var entry = {
+      fristName: fname,
+      lastName: lname,
+      email: email,
+      dateOfBrith: date,
+      phone: phone,
+      gender: gender,
+      comment: comment,
+      password: password
+    };
+    //Regular Expression validation 
+
+
+
+    // Retrieve existing data from localStorage or initialize empty array
+    var existingData = JSON.parse(localStorage.getItem("formData")) || [];
+
+    // Add new entry to existing data
+    existingData.push(entry);
+
+    // Save updated data to localStorage
+    localStorage.setItem("formData", JSON.stringify(existingData));
+
+
+    // Display success message
+    alert("Form data submitted successfully!");
+
+
+    // Reset form fields
+    //document.getElementById("userDataForm").reset();
+
+  }
+
 }
 
-
-function showRegistration() {
-  document.getElementById("registration").style.display = "block";
-  document.getElementById("list").style.display = "none";
-}
-
+//generate Employee list
+//generate Edit and delete button
 function showList() {
   document.getElementById("registration").style.display = "none";
   document.getElementById("list").style.display = "block";
@@ -134,12 +241,12 @@ function showList() {
 }
 
 // Function to open the edit modal with pre-filled data
-function openEditModal(index) {
+function openEditModal(id) {
   // Retrieve existing data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
 
-  // Get the entry to edit based on the index
-  var entry = existingData[index];
+  // Get the entry to edit based on the id
+  var entry = existingData[id];
 
   // Populate the edit form with the entry data
   var editForm = document.getElementById("editForm");
@@ -151,7 +258,7 @@ function openEditModal(index) {
   // editForm.elements["editComment"].value = entry.comment;
   editForm.elements["editGender"].value = entry.gender;
   // editForm.elements["editPassword"].value = entry.password;
-  editForm.elements["editIndex"].value = index;
+  editForm.elements["editIndex"].value = id;
 
   // Perform form submission or other actions
   editForm.onsubmit = submitEditForm;
@@ -160,6 +267,7 @@ function openEditModal(index) {
   $("#editModal").modal("show");
 }
 
+//Modal form submission
 function submitEditForm(event) {
   event.preventDefault(); // Prevent form submission
 
@@ -180,47 +288,47 @@ function submitEditForm(event) {
   // Get the index of the entry being edited
   var editIndex = parseInt(editIndexInput.value);
 
-  var fname = editFnameInput.value.trim() ; 
+  var fname = editFnameInput.value.trim();
   var lname = editLnameInput.value.trim();
-  var email = editEmailInput.value.trim() ;
+  var email = editEmailInput.value.trim();
   var phone = editPhoneInput.value.trim();
- 
+
   // Update the entry with the edited values
-  
+
 
   var checkValid = 1;
 
   if (validateRegularExpression(fname)) {
     //  proceed with form submission or other actions
-    } else {
-        alert("Please enter a valid First name.");
-        checkValid = 0;
-        }
+  } else {
+    alert("Please enter a valid First name.");
+    checkValid = 0;
+  }
   if (validateRegularExpression(lname)) {
     //  proceed with form submission or other actions
-    } else {
-        alert("Please enter a valid Last name.");
-        checkValid = 0;
-        }
+  } else {
+    alert("Please enter a valid Last name.");
+    checkValid = 0;
+  }
 
   if (validateEmail(email)) {
-      //  proceed with form submission or other actions
+    //  proceed with form submission or other actions
   } else {
-      alert("Please enter a valid email.");
-      checkValid = 0;
-      }
-    
-  if (validateMobileNumber(phone)) {
-      // proceed with form submission or other actions
-  } else {
-      alert("Please enter a valid Mobile No. start with 01.");
-      checkValid = 0;
-      }
-
-  if(checkValid != 1){
-      alert("Please fill correctly.");
+    alert("Please enter a valid email.");
+    checkValid = 0;
   }
-  else{
+
+  if (validateMobileNumber(phone)) {
+    // proceed with form submission or other actions
+  } else {
+    alert("Please enter a valid Mobile No. start with 01.");
+    checkValid = 0;
+  }
+
+  if (checkValid != 1) {
+    alert("Please fill correctly.");
+  }
+  else {
     existingData[editIndex].fristName = fname;
     existingData[editIndex].lastName = lname;
     existingData[editIndex].email = email;
@@ -237,15 +345,16 @@ function submitEditForm(event) {
 
     // Refresh the list
     showList();
-    }
+  }
 }
 
-function deleteEntry(index) {
+//Function for detele entry 
+function deleteEntry(id) {
   // Retrieve existing data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
 
-  // Remove the entry at the specified index
-  existingData.splice(index, 1);
+  // Remove the entry at the specified id
+  existingData.splice(id, 1);
 
   // Save updated data to localStorage
   localStorage.setItem("formData", JSON.stringify(existingData));
@@ -254,136 +363,78 @@ function deleteEntry(index) {
   showList();
 }
 
-//Validation functions
-function validateRegularExpression(text) {
-  // Regular expression pattern for name validation (only allows letters, spaces, and hyphens)
-  var pattern = /^[a-zA-Z\s-\s.]+$/;
+// function searchNames() {
+//   var searchInput = document.getElementById("searchInput");
+//   var filter = searchInput.value.toLowerCase();
+//   var rows = document.querySelectorAll("#userList tr");
 
-  return pattern.test(text);
-}
+//   rows.forEach(function (row) {
+//     var nameCell = row.querySelector("td:first-child");
+//     var emailCell = row.querySelector("td:nth-child(2)");
+//     var phoneCell = row.querySelector("td:nth-child(3)");
+//     var dobCell = row.querySelector("td:nth-child(4)");
+//     var genderCell = row.querySelector("td:nth-child(5)");
 
-//Email Validation   
-function validateEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9-_]+@[^\s@]+\.[a-zA-Z]{3,}$/;
-  return emailRegex.test(email);
-}
+//     var name = nameCell.textContent.toLowerCase();
+//     var email = emailCell.textContent.toLowerCase();
+//     var phone = phoneCell.textContent.toLowerCase();
+//     var dob = dobCell.textContent.toLowerCase();
+//     var gender = genderCell.textContent.toLowerCase();
 
-  //Mobile validation      
-function validateMobileNumber(mobile) {
-  const mobileNumberRegex = /^01\d{9}$/;
-  return mobileNumberRegex.test(mobile);
-  //<!-- pattern="01[0-9]{9}" -->
-}
+//     if (
+//       name.includes(filter) ||
+//       email.includes(filter) ||
+//       phone.includes(filter) ||
+//       dob.includes(filter) ||
+//       gender.includes(filter)
+//     ) {
+//       row.style.display = "";
+//     } else {
+//       row.style.display = "none";
+//     }
+//   });
+// }
+//
+function searchNames() {
+  var nameFilter = document.getElementById("nameFilter").value.toLowerCase();
+  var emailFilter = document.getElementById("emailFilter").value.toLowerCase();
+  var mobileFilter = document.getElementById("mobileFilter").value.toLowerCase();
+  var dobFilter = document.getElementById("dobFilter").value.toLowerCase();
+  var genderFilter = document.getElementById("genderFilter").value.toLowerCase();
 
-function validatePassword(password) {
-const passwordRegex = /^(?=.*\d)[a-zA-Z0-9]{4,}$/;
-return passwordRegex.test(password);
-}
+  var rows = document.querySelectorAll("#userList tr");
 
-function submitForm(event) {
-    event.preventDefault(); // Prevent form submission
+  rows.forEach(function (row) {
+    var nameCell = row.querySelector("td:first-child");
+    var emailCell = row.querySelector("td:nth-child(2)");
+    var phoneCell = row.querySelector("td:nth-child(3)");
+    var dobCell = row.querySelector("td:nth-child(4)");
+    var genderCell = row.querySelector("td:nth-child(5)");
 
-    // Get form values
-    var fnInput = document.getElementById('fname');
-    var lnInput = document.getElementById('lname');
-    var emailInput = document.getElementById('email');
-    var phoneInput = document.getElementById('number');
-    var passInput = document.getElementById('password');
-    var dateInput = document.getElementById('date');
-    var commentInput = document.getElementById('comment');
-    var gender = "";
-    
-    var fname = fnInput.value.trim()
-    var lname = lnInput.value.trim()
-    var email = emailInput.value.trim()
-    var phone = phoneInput.value.trim()
-    var date = dateInput.value.trim()
-    var comment = commentInput.value.trim()
-    var password = passInput.value.trim()
+    var name = nameCell.textContent.toLowerCase();
+    var email = emailCell.textContent.toLowerCase();
+    var phone = phoneCell.textContent.toLowerCase();
+    var dob = dobCell.textContent.toLowerCase();
+    var gender = genderCell.textContent.toLowerCase();
 
+    var nameMatch = name.includes(nameFilter);
+    var emailMatch = email.includes(emailFilter);
+    var mobileMatch = phone.includes(mobileFilter);
+    var dobMatch = dob.includes(dobFilter);
+    var genderMatch = gender.includes(genderFilter);
 
-    var checkboxes = document.getElementsByName("gender");
-      checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
-          gender = checkbox.value;
-        }
-      });
-
-    var checkValid = 1;
-
-
-    // Create new entry object
-
-    if (validateRegularExpression(fname)) {
-      //  proceed with form submission or other actions
-      } else {
-          alert("Please enter a valid First name.");
-          checkValid = 0;
-          }
-    if (validateRegularExpression(lname)) {
-      //  proceed with form submission or other actions
-      } else {
-          alert("Please enter a valid Last name.");
-          checkValid = 0;
-          }
-  
-    if (validateEmail(email)) {
-        //  proceed with form submission or other actions
+    if (nameMatch && emailMatch && mobileMatch && dobMatch && genderMatch) {
+      row.style.display = "";
     } else {
-        alert("Please enter a valid email.");
-        checkValid = 0;
-        }
-      
-    if (validateMobileNumber(phone)) {
-        // proceed with form submission or other actions
-    } else {
-        alert("Please enter a valid Mobile No. start with 01.");
-        checkValid = 0;
-        }
-    if (validatePassword(password)) {
-        // proceed with form submission or other actions
-    } else {
-        alert("Please enter password Strongly!");
-        checkValid = 0;
-        }
- 
-  
-    if(checkValid != 1){
-        alert("Please fill correctly.");
+      row.style.display = "none";
     }
-    else{
-
-    var entry = {
-      fristName : fname,
-      lastName : lname,
-      email : email,
-      dateOfBrith : date,
-      phone : phone,
-      gender : gender,
-      comment : comment,
-      password : password
-    };    
-      //Regular Expression validation 
-      
-      
-
-    // Retrieve existing data from localStorage or initialize empty array
-    var existingData = JSON.parse(localStorage.getItem("formData")) || [];
-
-    // Add new entry to existing data
-    existingData.push(entry);
-
-    // Save updated data to localStorage
-    localStorage.setItem("formData", JSON.stringify(existingData));
-
-
-    // Display success message
-    alert("Form data submitted successfully!");
-
-
-    // Reset form fields
-    //document.getElementById("userDataForm").reset();
-
-  }
-
+  });
 }
+
+// Add event listeners to search input elements
+document.getElementById("nameFilter").addEventListener("input", searchNames);
+document.getElementById("emailFilter").addEventListener("input", searchNames);
+document.getElementById("mobileFilter").addEventListener("input", searchNames);
+document.getElementById("dobFilter").addEventListener("input", searchNames);
+document.getElementById("genderFilter").addEventListener("change", searchNames);
+document.getElementById("searchInput").addEventListener("input", searchNames);

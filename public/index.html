@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMS</title>
-    <link
-      href=
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-    href=
-"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
-    rel="stylesheet"
-  />
-    <script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js">
-    </script>
-    <script src=
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
-    </script>
-    <script src=
-"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js">
-    </script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-      #registration {
-        display: block;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMS</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+    rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    #registration {
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
-<!---------Navigation Bar----------->
+  <!---------Navigation Bar----------->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">EMS</a>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -47,175 +38,210 @@
       </ul>
     </div>
   </nav>
-        
-<!-- Modal for Editing -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Edit Employee Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editForm" onsubmit="submitEditForm(event)">
-          <div class="form-group">
-            <label for="editFname">First Name</label>
-            <input type="text" class="form-control" id="editFname" placeholder="First Name">
-          </div>
-          <div class="form-group">
-            <label for="editLname">Last Name</label>
-            <input type="text" class="form-control" id="editLname" placeholder="Last Name">
-          </div>
-          <div class="form-group">
-            <label for="editEmail">Email</label>
-            <input type="email" class="form-control" id="editEmail" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="editPhone">Phone</label>
-            <input type="tel" class="form-control" id="editPhone" placeholder="Phone" maxlength="11">
-          </div>
-          <div class="form-group">
-            <label for="editDate">Date</label>
-            <input type="text" class="form-control" id="editDate" placeholder="Enter date">
-           
-          </div>
-          <div class="form-group">
-            <label for="editGender">Gender</label>
-            <select class="form-control" id="editGender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <!-- <div class="form-group">
-            <label for="editComment">Comments</label>
-            <textarea class="form-control" id="editComment" placeholder="Leave a comment here" style="height: 100px"></textarea>
-          </div> -->
-          <!-- <div class="form-group">
-            <label for="editPassword">Password</label>
-            <input type="password" class="form-control" id="editPassword" placeholder="Password">
-          </div> -->
-          <input type="hidden" id="editIndex">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
+
+  <!-- Modal for Editing -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Employee Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm" onsubmit="submitEditForm(event)">
+            <div class="form-group">
+              <label for="editFname">First Name</label>
+              <input type="text" class="form-control" id="editFname" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <label for="editLname">Last Name</label>
+              <input type="text" class="form-control" id="editLname" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input type="email" class="form-control" id="editEmail" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="editPhone">Phone</label>
+              <input type="tel" class="form-control" id="editPhone" placeholder="Phone" maxlength="11">
+            </div>
+            <div class="form-group">
+              <label for="editDate">Date</label>
+              <input type="text" class="form-control" id="editDate" placeholder="Enter date">
+
+            </div>
+            <div class="form-group">
+              <label for="editGender">Gender</label>
+              <select class="form-control" id="editGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <!-- <div class="form-group">
+<label for="editComment">Comments</label>
+<textarea class="form-control" id="editComment" placeholder="Leave a comment here" style="height: 100px"></textarea>
+</div> -->
+            <!-- <div class="form-group">
+<label for="editPassword">Password</label>
+<input type="password" class="form-control" id="editPassword" placeholder="Password">
+</div> -->
+            <input type="hidden" id="editIndex">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!------Body Container --------->
+  <!------Body Container --------->
   <div class="container content">
-    <div  id="registration">
+    <div id="registration">
 
-    <div class="row" style="display: flex; ">
-      <div id="left" class="col-md-6" style="flex: 1; margin: auto;">
-        <h1 style="font-family:Ink Free; text-align: center; font-size:100px; color: #ff1e00;">Welcome to our Website!</h1>
-        <p style="font-family:'MV Boli'; text-align: center; font-size:50px; color: #f0f0f0;">To know about our update stay with us!</p>
-      </div>
-      <div style="width: 1px; background-color: #d8d8d8d0;"></div>
-      <div id="right" class="col-md-6" style="flex: 1; background-color: #fda59a;">
-        <h5>Employee Management System</h5>
-        <hr>
-        
-        <form id="myForm" onsubmit="submitForm(event)">
-          <div class="form-row">
-            
-            <div class="form-group col-md-6">
-              <label for="name">First Name</label>
-              <input type="text" name="fname" class="form-control" id="fname" placeholder="First Name">
-  
-            </div>
-            <div class="form-group col-md-6">
+      <div class="row" style="display: flex; ">
+        <div id="left" class="col-md-6" style="flex: 1; margin: auto;">
+          <h1 style="font-family:Ink Free; text-align: center; font-size:100px; color: #ff1e00;">Welcome to our Website!
+          </h1>
+          <p style="font-family:'MV Boli'; text-align: center; font-size:50px; color: #f0f0f0;">To know about our update
+            stay with us!</p>
+        </div>
+        <div style="width: 1px; background-color: #d8d8d8d0;"></div>
+        <div id="right" class="col-md-6" style="flex: 1; background-color: #fda59a;">
+          <h5>Employee Management System</h5>
+          <hr>
+
+          <form id="myForm" onsubmit="submitForm(event)">
+            <div class="form-row">
+
+              <div class="form-group col-md-6">
+                <label for="name">First Name</label>
+                <input type="text" name="fname" class="form-control" id="fname" placeholder="First Name">
+
+              </div>
+              <div class="form-group col-md-6">
                 <label for="name">Last Name</label>
                 <input type="text" name="lname" class="form-control" id="lname" placeholder="Last Name">
               </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="date">Birth Date</label>
-            <div class="input-group">
-              <input type="text" name="date" class="form-control" id="date"  class="date form-control" placeholder="Enter date">
-              <span class="input-group-text" >
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-              </span>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPhone">Phone</label>
-            <input type="tel" name="phone" placeholder="Phone" maxlength="11" class="form-control" id="number">
-            <small></small>
-          </div>
-          <div class="form-group">
-            <label>Gender:</label>
-            <div class="form-check">
-              <input type="checkbox" id="male" name="gender" value="male" class="form-check-input" onclick="updateCheckbox(this)">
-              <label for="male" class="form-check-label">Male</label>
+
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email">
             </div>
-            <div class="form-check">
-              <input type="checkbox" id="female" name="gender" value="female" class="form-check-input" onclick="updateCheckbox(this)">
-              <label for="female" class="form-check-label">Female</label>
+            <div class="form-group">
+              <label for="date">Birth Date</label>
+              <div class="input-group">
+                <input type="text" name="date" class="form-control" id="date" class="date form-control"
+                  placeholder="Enter date">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </span>
+              </div>
             </div>
-          </div>
-          <div class="form-floating">
-            <label for="comment">Comments</label>
-            <textarea class="form-control" placeholder="Leave a comment here" id="comment" style="height: 100px"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword4">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-            
-          </div>
-          
-          <button type="submit" class="btn btn-block btn-danger" value="submit">Submit</button>
-        </form>
+            <div class="form-group">
+              <label for="inputPhone">Phone</label>
+              <input type="tel" name="phone" placeholder="Phone" maxlength="11" class="form-control" id="number">
+              <small></small>
+            </div>
+            <div class="form-group">
+              <label>Gender:</label>
+              <div class="form-check">
+                <input type="checkbox" id="male" name="gender" value="male" class="form-check-input"
+                  onclick="updateCheckbox(this)">
+                <label for="male" class="form-check-label">Male</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" id="female" name="gender" value="female" class="form-check-input"
+                  onclick="updateCheckbox(this)">
+                <label for="female" class="form-check-label">Female</label>
+              </div>
+            </div>
+            <div class="form-floating">
+              <label for="comment">Comments</label>
+              <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                style="height: 100px"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword4">Password</label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+
+            </div>
+
+            <button type="submit" class="btn btn-block btn-danger" value="submit">Submit</button>
+          </form>
+        </div>
+
       </div>
 
     </div>
-    
-  
+
+    <!-----------Registered Employee List------------>
+    <div id="list" style="display: none;">
+      <h5>Registered Employee</h5>
+      <hr>
+      <!-- Search filters -->
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <input type="text" class="form-control" id="nameFilter" placeholder="Search by Name">
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" id="emailFilter" placeholder="Search by Email">
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" id="mobileFilter" placeholder="Search by Mobile">
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control" id="dobFilter" placeholder="Search by Date of Birth">
+        </div>
+        <div class="col-md-2">
+          <select class="form-control" id="genderFilter">
+            <option value="">All Genders</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+      <!-- Filter box -->
+      <div class="search-box">
+        <input type="text" class="form-control" id="searchInput"
+          placeholder="Search by name, email, mobile, gender, date of birth" oninput="searchNames()" />
+      </div>
+      <table class="table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>DOB</th>
+              <th>Gender</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userList">
+          </tbody>
+        </table>
+    </div>
   </div>
 
-<!-----------Registered Employee List------------>
-  <div id="list" style="display: none;">
-    <h5>Registered Employee</h5>
-    <hr>
-    <div class="search-box">
-      <input type="text" class="form-control" id="searchInput" placeholder="Search by name, email, mobile, gender, date of birth" oninput="searchNames()" />
-    </div>
-    <table class="table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Mobile</th>
-          <th>DOB</th>
-          <th>Gender</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="userList">
-      </tbody>
-    </table>
-  </div>  
-</div>
-  
   <script type="text/javascript" src="script.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
     $('#date').datepicker({
-    format : 'dd-mm-yy',
-    autoclose : true,
+      format: 'dd-mm-yy',
+      autoclose: true,
     });
     $('#editDate').datepicker({
-    format : 'dd-mm-yy',
-    autoclose : true,
+      format: 'dd-mm-yy',
+      autoclose: true,
     });
-</script>
+    $('#dobFilter').datepicker({
+      format: 'dd-mm-yy',
+      autoclose: true,
+    });
+  </script>
 </body>
+
 </html>
