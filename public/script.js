@@ -147,7 +147,8 @@ function submitForm(event) {
 
 
     // Reset form fields
-    //document.getElementById("userDataForm").reset();
+    document.getElementById("userDataForm").reset();
+    showList()
 
   }
 
@@ -164,26 +165,6 @@ function showList() {
 
   // Retrieve data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
-
-  // // Filter data based on search input
-  // var searchInput = document.getElementById("searchInput");
-  // var filter = searchInput.value.toLowerCase();
-  // var filteredData = existingData.filter(function (entry) {
-  //   var fullName = entry.fristName.toLowerCase() + " " + entry.lastName.toLowerCase();
-  //   var email = entry.email.toLowerCase();
-  //   var phone = entry.phone.toLowerCase();
-  //   var dob = entry.dateOfBrith.toLowerCase();
-  //   var gender = entry.gender.toLowerCase();
-
-  //   return (
-  //     fullName.includes(filter) ||
-  //     email.includes(filter) ||
-  //     phone.includes(filter) ||
-  //     dob.includes(filter) ||
-  //     gender.includes(filter)
-  //   );
-  // });
-
 
   // Clear previous entries
   var userList = document.getElementById("userList");
@@ -405,4 +386,3 @@ document.getElementById("emailFilter").addEventListener("input", searchNames);
 document.getElementById("mobileFilter").addEventListener("input", searchNames);
 document.getElementById("dobFilter").addEventListener("input", searchNames);
 document.getElementById("genderFilter").addEventListener("change", searchNames);
-// document.getElementById("searchInput").addEventListener("input", searchNames);
