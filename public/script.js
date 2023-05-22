@@ -230,7 +230,7 @@ function showList() {
 
 
   var search = searchEntries(searchItem);
-  if (search) {
+  if (search.length != 0) {
     paginatedData = paginate(search, pageSize, currentPage);
   }
   // Create table rows for each filtered entry
@@ -412,12 +412,15 @@ function searchEntries(searchInput) {
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
   var searchResults = [];
 
+  var searchFirstName = searchInput.fristName ? searchInput.fristName.toLowerCase() : null;
+
   for (var i = 0; i < existingData.length; i++) {
-    var entry = existingData[i];
-
-   
+    var newEntry = existingData[i];
+    var nameMatch = !searchFirstName || newEntry.fristName.toLowerCase().includes(searchFirstName);
+    
+    if (nameMatch) {
+      searchResults.push(newEntry);
+    }
   }
-
   return searchResults;
 }
-
