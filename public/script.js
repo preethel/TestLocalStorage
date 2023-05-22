@@ -1,3 +1,5 @@
+let currentPage = 1; // Current page number
+let lastPage = 0;
 //navigate for registration form 
 function showRegistration() {
   document.getElementById("registration").style.display = "block";
@@ -152,6 +154,57 @@ function submitForm(event) {
 
 }
 
+//update page 
+function nextPage() {
+  if (currentPage < lastPage) {
+    currentPage++;
+  }
+  showList();
+}
+
+//update previous page 
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage = currentPage - 1;
+  }
+  showList()
+}
+
+
+var searchItem = [];
+function searchForm(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get form values
+  var nameInput = document.getElementById('nameFilter');
+  var emailInput = document.getElementById('emailFilter');
+  var phoneInput = document.getElementById('mobileFilter');
+  var dateInput = document.getElementById('dobFilter');
+  var genderInput = document.getElementById('genderFilter');
+
+  var name = nameInput.value.trim();
+  var email = emailInput.value.trim();
+  var phone = phoneInput.value.trim();
+  var date = dateInput.value.trim();
+  var gender = genderInput.value.trim();
+
+  name = name.toLowerCase();
+  email = email.toLowerCase();
+  phone = phone.toLowerCase();
+  date = date.toLowerCase();
+  gender = gender.toLowerCase();
+
+  searchItem = {
+    fristName: name,
+    lastName: name,
+    email: email,
+    phone: phone,
+    dateOfBrith: date,
+    gender: gender
+  }
+  showList();
+}
+
 //generate Employee list
 //generate Edit and delete button
 function showList() {
@@ -160,16 +213,28 @@ function showList() {
 
   var userList = document.getElementById("userList");
   userList.innerHTML = ""; // Clear previous entries
-
   // Retrieve data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
-
   // Clear previous entries
   var userList = document.getElementById("userList");
   userList.innerHTML = "";
 
+  // Calculate total number of pages
+  const totalEntries = existingData.length;
+  const pageSize = 5;
+  const totalPages = Math.ceil(totalEntries / pageSize);
+  lastPage = totalPages;
+  // Example usage
+
+  let paginatedData = paginate(existingData, pageSize, currentPage);
+
+
+  var search = searchEntries(searchItem);
+  if (search) {
+    paginatedData = paginate(search, pageSize, currentPage);
+  }
   // Create table rows for each filtered entry
-  existingData.forEach(function (entry, index) {
+  paginatedData.forEach(function (entry, index) {
     // existing code to create table rows
     // ...
     var row = document.createElement("tr");
@@ -219,6 +284,11 @@ function showList() {
   });
 }
 
+// Function to paginate the data
+function paginate(array, page_size, page_number) {
+  --page_number; // Adjust page number to 0-based index
+  return array.slice(page_number * page_size, (page_number + 1) * page_size);
+}
 // Function to open the edit modal with pre-filled data
 function openEditModal(id) {
   // Retrieve existing data from localStorage
@@ -337,51 +407,17 @@ function deleteEntry(id) {
   // Show the updated list
   showList();
 }
-//Funtion for Multiple search
-function searchNames() {
-  var nameFilter = document.getElementById("nameFilter").value.toLowerCase();
-  var emailFilter = document.getElementById("emailFilter").value.toLowerCase();
-  var mobileFilter = document.getElementById("mobileFilter").value.toLowerCase();
-  var dobFilter = document.getElementById("dobFilter").value.toLowerCase();
-  var genderFilter = document.getElementById("genderFilter").value.toLowerCase();
+// Function to search entries by multiple fields
+function searchEntries(searchInput) {
+  var existingData = JSON.parse(localStorage.getItem("formData")) || [];
+  var searchResults = [];
 
-  var rows = document.querySelectorAll("#userList tr");
+  for (var i = 0; i < existingData.length; i++) {
+    var entry = existingData[i];
 
-  rows.forEach(function (row) {
-    var nameCell = row.querySelector("td:first-child");
-    var emailCell = row.querySelector("td:nth-child(2)");
-    var phoneCell = row.querySelector("td:nth-child(3)");
-    var dobCell = row.querySelector("td:nth-child(4)");
-    var genderCell = row.querySelector("td:nth-child(5)");
+   
+  }
 
-    var name = nameCell.textContent.toLowerCase();
-    var email = emailCell.textContent.toLowerCase();
-    var phone = phoneCell.textContent.toLowerCase();
-    var dob = dobCell.textContent.toLowerCase();
-    var gender = genderCell.textContent.toLowerCase();
-
-    var nameMatch = name.includes(nameFilter);
-    var emailMatch = email.includes(emailFilter);
-    var mobileMatch = phone.includes(mobileFilter);
-    var dobMatch = dob.includes(dobFilter);
-    if(genderFilter === "both"){
-      var genderMatch = true;
-    }else{
-      var genderMatch = genderFilter === gender ? true : false;
-    }
-    // gender.includes(genderFilter)
-
-    if (nameMatch && emailMatch && mobileMatch && dobMatch && genderMatch) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
-    }
-  });
+  return searchResults;
 }
 
-// Add event listeners to search input elements
-document.getElementById("nameFilter").addEventListener("input", searchNames);
-document.getElementById("emailFilter").addEventListener("input", searchNames);
-document.getElementById("mobileFilter").addEventListener("input", searchNames);
-document.getElementById("dobFilter").addEventListener("input", searchNames);
-document.getElementById("genderFilter").addEventListener("change", searchNames);

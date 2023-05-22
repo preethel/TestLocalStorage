@@ -80,14 +80,6 @@
                 <option value="female">Female</option>
               </select>
             </div>
-            <!-- <div class="form-group">
-<label for="editComment">Comments</label>
-<textarea class="form-control" id="editComment" placeholder="Leave a comment here" style="height: 100px"></textarea>
-</div> -->
-            <!-- <div class="form-group">
-<label for="editPassword">Password</label>
-<input type="password" class="form-control" id="editPassword" placeholder="Password">
-</div> -->
             <input type="hidden" id="id">
             <button type="submit" class="btn btn-primary">Save Changes</button>
           </form>
@@ -104,7 +96,7 @@
         <div id="left" class="col-md-6" style="flex: 1;">
           <br>
           <br>
-          <br> 
+          <br>
           <h1 style="font-family:Ink Free; text-align: center; font-size:100px; color: #ff6c28;">Welcome to our Website!
           </h1>
           <p style="font-family:'MV Boli'; text-align: center; font-size:50px; color: #f0f0f0;">To know about our update
@@ -114,21 +106,18 @@
         <div id="right" class="col-md-6" style="flex: 1; background-color: #ff4800b7;">
           <h5>Employee Management System</h5>
           <hr>
-
+          <!----------Form Input--------------->
           <form id="myForm" onsubmit="submitForm(event)">
             <div class="form-row">
-
               <div class="form-group col-md-6">
                 <label for="name">First Name</label>
                 <input type="text" name="fname" class="form-control" id="fname" placeholder="First Name">
-
               </div>
               <div class="form-group col-md-6">
                 <label for="name">Last Name</label>
                 <input type="text" name="lname" class="form-control" id="lname" placeholder="Last Name">
               </div>
             </div>
-
             <div class="form-group">
               <label for="inputEmail">Email</label>
               <input type="email" name="email" class="form-control" id="email" placeholder="Email">
@@ -169,9 +158,7 @@
             <div class="form-group">
               <label for="inputPassword4">Password</label>
               <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-
             </div>
-
             <button type="submit" class="btn btn-block btn-danger" value="submit">Submit</button>
           </form>
         </div>
@@ -185,43 +172,60 @@
       <h5>Registered Employee</h5>
       <hr>
       <!-- Search filters -->
-      <div class="row mb-3">
-        <div class="col-md-2">
-          <input type="text" class="form-control" id="nameFilter" placeholder="Search by Name">
+      <form id="searchForm" onsubmit="searchForm(event)">
+        <div class="row mb-3">
+          <div class="col-md-2 form-group">
+            <input type="text" class="form-control" id="nameFilter" placeholder="Search by Name">
+          </div>
+          <div class="col-md-2 form-group">
+            <input type="text" class="form-control" id="emailFilter" placeholder="Search by Email">
+          </div>
+          <div class="col-md-2 form-group">
+            <input type="text" class="form-control" id="mobileFilter" placeholder="Search by Mobile">
+          </div>
+          <div class="col-md-2 form-group">
+            <input type="text" class="form-control" id="dobFilter" placeholder="Search by Date of Birth">
+          </div>
+          <div class="col-md-2 form-group">
+            <select class="form-control" id="genderFilter">
+              <option value="both">All Genders</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div class="col-md-2 form-group">
+            <button class="btn btn-outline-primary" type="submit" value="search">Search</button>
+          </div>
         </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" id="emailFilter" placeholder="Search by Email">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" id="mobileFilter" placeholder="Search by Mobile">
-        </div>
-        <div class="col-md-2">
-          <input type="text" class="form-control" id="dobFilter" placeholder="Search by Date of Birth">
-        </div>
-        <div class="col-md-2">
-          <select class="form-control" id="genderFilter">
-            <option value="both">All Genders</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-      </div>
-
+      </form>
       <table class="table">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>DOB</th>
-              <th>Gender</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="userList">
-          </tbody>
-        </table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>DOB</th>
+            <th>Gender</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="userList">
+        </tbody>
+      </table>
+
+      <!-----pagination-------->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" id="previous" tabindex="-1" aria-disabled="true" onclick="previousPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" id="next" onclick="nextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+
     </div>
   </div>
 
