@@ -114,7 +114,7 @@ function submitForm(event) {
 
 
   if (checkValid != 1) {
-    alert("Please fill correctly.");
+    console.log("Validation Error!");
   }
   else {
 
@@ -129,8 +129,6 @@ function submitForm(event) {
       password: password
     };
     //Regular Expression validation 
-
-
 
     // Retrieve existing data from localStorage or initialize empty array
     var existingData = JSON.parse(localStorage.getItem("formData")) || [];
@@ -147,7 +145,7 @@ function submitForm(event) {
 
 
     // Reset form fields
-    document.getElementById("userDataForm").reset();
+    document.getElementById("myForm").reset();
     showList()
 
   }
@@ -239,7 +237,7 @@ function openEditModal(id) {
   // editForm.elements["editComment"].value = entry.comment;
   editForm.elements["editGender"].value = entry.gender;
   // editForm.elements["editPassword"].value = entry.password;
-  editForm.elements["editIndex"].value = id;
+  editForm.elements["id"].value = id;
 
   // Perform form submission or other actions
   editForm.onsubmit = submitEditForm;
@@ -261,21 +259,15 @@ function submitEditForm(event) {
   // var editCommentInput = document.getElementById('editComment');
   var editGenderInput = document.getElementById('editGender');
   // var editPasswordInput = document.getElementById('editPassword');
-  var editIndexInput = document.getElementById('editIndex');
-
-  // Retrieve existing data from localStorage
-  var existingData = JSON.parse(localStorage.getItem("formData")) || [];
+  var idInput = document.getElementById('id');
 
   // Get the index of the entry being edited
-  var editIndex = parseInt(editIndexInput.value);
+  var id = parseInt(idInput.value);
 
   var fname = editFnameInput.value.trim();
   var lname = editLnameInput.value.trim();
   var email = editEmailInput.value.trim();
   var phone = editPhoneInput.value.trim();
-
-  // Update the entry with the edited values
-
 
   var checkValid = 1;
 
@@ -310,14 +302,16 @@ function submitEditForm(event) {
     alert("Please fill correctly.");
   }
   else {
-    existingData[editIndex].fristName = fname;
-    existingData[editIndex].lastName = lname;
-    existingData[editIndex].email = email;
-    existingData[editIndex].phone = phone;
-    existingData[editIndex].dateOfBrith = editDateInput.value.trim();
-    // existingData[editIndex].comment = editCommentInput.value.trim();
-    existingData[editIndex].gender = editGenderInput.value;
-    // existingData[editIndex].password = editPasswordInput.value.trim();
+    // Retrieve existing data from localStorage
+    var existingData = JSON.parse(localStorage.getItem("formData")) || [];
+    existingData[id].fristName = fname;
+    existingData[id].lastName = lname;
+    existingData[id].email = email;
+    existingData[id].phone = phone;
+    existingData[id].dateOfBrith = editDateInput.value.trim();
+    // existingData[id].comment = editCommentInput.value.trim();
+    existingData[id].gender = editGenderInput.value;
+    // existingData[id].password = editPasswordInput.value.trim();
     // Save updated data to localStorage
     localStorage.setItem("formData", JSON.stringify(existingData));
 
@@ -370,7 +364,12 @@ function searchNames() {
     var emailMatch = email.includes(emailFilter);
     var mobileMatch = phone.includes(mobileFilter);
     var dobMatch = dob.includes(dobFilter);
-    var genderMatch = gender.includes(genderFilter);
+    if(genderFilter === "both"){
+      var genderMatch = true;
+    }else{
+      var genderMatch = genderFilter === gender ? true : false;
+    }
+    // gender.includes(genderFilter)
 
     if (nameMatch && emailMatch && mobileMatch && dobMatch && genderMatch) {
       row.style.display = "";
