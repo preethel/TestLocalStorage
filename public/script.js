@@ -145,7 +145,15 @@ function submitForm(event) {
   }
 }
 
-//update page
+function goToPage(pageNumber) {
+
+  if (!pageNumber) {
+    currentPage = pageNumber;
+    showList();
+  }
+}
+
+//update next page
 function nextPage() {
   if (currentPage < lastPage) {
     currentPage++;
@@ -218,14 +226,15 @@ function showList() {
 
   let paginatedData = paginate(existingData, pageSize, currentPage);
 
-  var search = searchEntries(searchItem);
+  const search = searchEntries(searchItem);
   if (search.length != 0) {
+    const searchPages = Math.ceil(search.length / pageSize);
+    lastPage = searchPages;
     paginatedData = paginate(search, pageSize, currentPage);
   }
   // Create table rows for each filtered entry
   paginatedData.forEach(function (entry, index) {
     // existing code to create table rows
-    // ...
     var row = document.createElement("tr");
     var nameCell = document.createElement("td");
     var fname = entry.fristName;
@@ -442,9 +451,20 @@ function searchEntries(searchInput) {
     const genderhMatch =
       !searchGender ||
       person.gender.toLowerCase() === searchGender.toLowerCase();
-      console.log("genderMatch =>",genderhMatch);
+    console.log("genderMatch =>", genderhMatch);
 
     return nameMatch && emailMatch && phoneMatch && dateOfBrithMatch && genderhMatch;
   });
-  return searchResults;
+  if (searchResults.length > 0) {
+    console.log("searFound =>", searchResults.length);
+    // Reset form fields
+    document.getElementById("searchForm").reset();
+    return searchResults;
+  } else {
+    alert("No search Found");
+    console.log("searFound =>", searchResults.length);
+    // Reset form fields
+    document.getElementById("searchForm").reset();
+    return [];
+  }
 }

@@ -215,16 +215,21 @@
 
       <!-----pagination-------->
       <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+        <ul id="myList" class="pagination justify-content-center">
           <li class="page-item">
-            <a class="page-link" id="previous" tabindex="-1" aria-disabled="true" onclick="previousPage()">Previous</a>
+            <a class="page-link" id="previous" onclick="previousPage()"><<</a>
           </li>
           <li class="page-item">
-            <a class="page-link" id="next" onclick="nextPage()">Next</a>
+            <a href="" class="page-link">a</a>
+          </li>
+          <li class="page-item">
+            <a href="" class="page-link">b</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" id="next" onclick="nextPage()">>></a>
           </li>
         </ul>
       </nav>
-
 
     </div>
   </div>
