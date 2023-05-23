@@ -1,6 +1,6 @@
 let currentPage = 1; // Current page number
 let lastPage = 0;
-//navigate for registration form 
+//navigate for registration form
 function showRegistration() {
   document.getElementById("registration").style.display = "block";
   document.getElementById("list").style.display = "none";
@@ -27,13 +27,13 @@ function validateRegularExpression(text) {
   return pattern.test(text);
 }
 
-//Email Validation   
+//Email Validation
 function validateEmail(email) {
   const emailRegex = /^[a-zA-Z0-9-_]+@[^\s@]+\.[a-zA-Z]{3,}$/;
   return emailRegex.test(email);
 }
 
-//Mobile validation      
+//Mobile validation
 function validateMobileNumber(mobile) {
   const mobileNumberRegex = /^01\d{9}$/;
   return mobileNumberRegex.test(mobile);
@@ -51,23 +51,22 @@ function submitForm(event) {
   event.preventDefault(); // Prevent form submission
 
   // Get form values
-  var fnInput = document.getElementById('fname');
-  var lnInput = document.getElementById('lname');
-  var emailInput = document.getElementById('email');
-  var phoneInput = document.getElementById('number');
-  var passInput = document.getElementById('password');
-  var dateInput = document.getElementById('date');
-  var commentInput = document.getElementById('comment');
+  var fnInput = document.getElementById("fname");
+  var lnInput = document.getElementById("lname");
+  var emailInput = document.getElementById("email");
+  var phoneInput = document.getElementById("number");
+  var passInput = document.getElementById("password");
+  var dateInput = document.getElementById("date");
+  var commentInput = document.getElementById("comment");
   var gender = "";
 
-  var fname = fnInput.value.trim()
-  var lname = lnInput.value.trim()
-  var email = emailInput.value.trim()
-  var phone = phoneInput.value.trim()
-  var date = dateInput.value.trim()
-  var comment = commentInput.value.trim()
-  var password = passInput.value.trim()
-
+  var fname = fnInput.value.trim();
+  var lname = lnInput.value.trim();
+  var email = emailInput.value.trim();
+  var phone = phoneInput.value.trim();
+  var date = dateInput.value.trim();
+  var comment = commentInput.value.trim();
+  var password = passInput.value.trim();
 
   var checkboxes = document.getElementsByName("gender");
   checkboxes.forEach(function (checkbox) {
@@ -77,7 +76,6 @@ function submitForm(event) {
   });
 
   var checkValid = 1;
-
 
   // Create new entry object
 
@@ -114,12 +112,9 @@ function submitForm(event) {
     checkValid = 0;
   }
 
-
   if (checkValid != 1) {
     console.log("Validation Error!");
-  }
-  else {
-
+  } else {
     var entry = {
       fristName: fname,
       lastName: lname,
@@ -128,9 +123,9 @@ function submitForm(event) {
       phone: phone,
       gender: gender,
       comment: comment,
-      password: password
+      password: password,
     };
-    //Regular Expression validation 
+    //Regular Expression validation
 
     // Retrieve existing data from localStorage or initialize empty array
     var existingData = JSON.parse(localStorage.getItem("formData")) || [];
@@ -141,20 +136,16 @@ function submitForm(event) {
     // Save updated data to localStorage
     localStorage.setItem("formData", JSON.stringify(existingData));
 
-
     // Display success message
     alert("Form data submitted successfully!");
 
-
     // Reset form fields
     document.getElementById("myForm").reset();
-    showList()
-
+    showList();
   }
-
 }
 
-//update page 
+//update page
 function nextPage() {
   if (currentPage < lastPage) {
     currentPage++;
@@ -162,25 +153,24 @@ function nextPage() {
   showList();
 }
 
-//update previous page 
+//update previous page
 function previousPage() {
   if (currentPage > 1) {
     currentPage = currentPage - 1;
   }
-  showList()
+  showList();
 }
-
 
 var searchItem = [];
 function searchForm(event) {
   event.preventDefault(); // Prevent form submission
 
   // Get form values
-  var nameInput = document.getElementById('nameFilter');
-  var emailInput = document.getElementById('emailFilter');
-  var phoneInput = document.getElementById('mobileFilter');
-  var dateInput = document.getElementById('dobFilter');
-  var genderInput = document.getElementById('genderFilter');
+  var nameInput = document.getElementById("nameFilter");
+  var emailInput = document.getElementById("emailFilter");
+  var phoneInput = document.getElementById("mobileFilter");
+  var dateInput = document.getElementById("dobFilter");
+  var genderInput = document.getElementById("genderFilter");
 
   var name = nameInput.value.trim();
   var email = emailInput.value.trim();
@@ -200,8 +190,8 @@ function searchForm(event) {
     email: email,
     phone: phone,
     dateOfBrith: date,
-    gender: gender
-  }
+    gender: gender,
+  };
   showList();
 }
 
@@ -227,7 +217,6 @@ function showList() {
   // Example usage
 
   let paginatedData = paginate(existingData, pageSize, currentPage);
-
 
   var search = searchEntries(searchItem);
   if (search.length != 0) {
@@ -321,15 +310,15 @@ function submitEditForm(event) {
   event.preventDefault(); // Prevent form submission
 
   // Get form values
-  var editFnameInput = document.getElementById('editFname');
-  var editLnameInput = document.getElementById('editLname');
-  var editEmailInput = document.getElementById('editEmail');
-  var editPhoneInput = document.getElementById('editPhone');
-  var editDateInput = document.getElementById('editDate');
+  var editFnameInput = document.getElementById("editFname");
+  var editLnameInput = document.getElementById("editLname");
+  var editEmailInput = document.getElementById("editEmail");
+  var editPhoneInput = document.getElementById("editPhone");
+  var editDateInput = document.getElementById("editDate");
   // var editCommentInput = document.getElementById('editComment');
-  var editGenderInput = document.getElementById('editGender');
+  var editGenderInput = document.getElementById("editGender");
   // var editPasswordInput = document.getElementById('editPassword');
-  var idInput = document.getElementById('id');
+  var idInput = document.getElementById("id");
 
   // Get the index of the entry being edited
   var id = parseInt(idInput.value);
@@ -370,8 +359,7 @@ function submitEditForm(event) {
 
   if (checkValid != 1) {
     alert("Please fill correctly.");
-  }
-  else {
+  } else {
     // Retrieve existing data from localStorage
     var existingData = JSON.parse(localStorage.getItem("formData")) || [];
     existingData[id].fristName = fname;
@@ -386,14 +374,14 @@ function submitEditForm(event) {
     localStorage.setItem("formData", JSON.stringify(existingData));
 
     // Hide the modal
-    $('#editModal').modal('hide');
+    $("#editModal").modal("hide");
 
     // Refresh the list
     showList();
   }
 }
 
-//Function for detele entry 
+//Function for detele entry
 function deleteEntry(id) {
   // Retrieve existing data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
@@ -412,15 +400,51 @@ function searchEntries(searchInput) {
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
   var searchResults = [];
 
-  var searchFirstName = searchInput.fristName ? searchInput.fristName.toLowerCase() : null;
+  const searchFirstName = searchInput.fristName
+    ? searchInput.fristName.toLowerCase()
+    : null;
+  const searchLastName = searchInput.lastName
+    ? searchInput.lastName.toLowerCase()
+    : null;
+  const searchEmail = searchInput.email
+    ? searchInput.email.toLowerCase()
+    : null;
+  const searchDateOfBrith = searchInput.dateOfBrith
+    ? searchInput.dateOfBrith.toLowerCase()
+    : null;
+  const searchPhone = searchInput.phone
+    ? searchInput.phone.toLowerCase()
+    : null;
+  const searchGender = searchInput.gender
+    ? searchInput.gender.toLowerCase()
+    : null;
 
-  for (var i = 0; i < existingData.length; i++) {
-    var newEntry = existingData[i];
-    var nameMatch = !searchFirstName || newEntry.fristName.toLowerCase().includes(searchFirstName);
-    
-    if (nameMatch) {
-      searchResults.push(newEntry);
-    }
-  }
+  console.log("searchGender =>", searchGender);
+
+  const clonedData = [...existingData];
+  searchResults = clonedData.filter((person) => {
+    console.log("dateOfBrith =>", person.gender);
+    const nameMatch =
+      !searchFirstName ||
+      !searchLastName ||
+      person.fristName
+        .toLowerCase()
+        .startsWith(searchFirstName.toLowerCase()) ||
+      person.lastName.toLowerCase().startsWith(searchLastName.toLowerCase());
+    const emailMatch =
+      !searchEmail ||
+      person.email.toLowerCase().includes(searchEmail.toLowerCase());
+    const phoneMatch = !searchPhone || person.phone.startsWith(searchPhone);
+    const dateOfBrithMatch =
+      !searchDateOfBrith ||
+      person.dateOfBrith.toLowerCase() === searchDateOfBrith.toLowerCase();
+
+    const genderhMatch =
+      !searchGender ||
+      person.gender.toLowerCase() === searchGender.toLowerCase();
+      console.log("genderMatch =>",genderhMatch);
+
+    return nameMatch && emailMatch && phoneMatch && dateOfBrithMatch && genderhMatch;
+  });
   return searchResults;
 }
