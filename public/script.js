@@ -145,30 +145,6 @@ function submitForm(event) {
   }
 }
 
-function goToPage(pageNumber) {
-
-  if (!pageNumber) {
-    currentPage = pageNumber;
-    showList();
-  }
-}
-
-//update next page
-function nextPage() {
-  if (currentPage < lastPage) {
-    currentPage++;
-  }
-  showList();
-}
-
-//update previous page
-function previousPage() {
-  if (currentPage > 1) {
-    currentPage = currentPage - 1;
-  }
-  showList();
-}
-
 var searchItem = [];
 function searchForm(event) {
   event.preventDefault(); // Prevent form submission
@@ -203,14 +179,36 @@ function searchForm(event) {
   showList();
 }
 
+function goToPage(pageNumber) {
+
+  if (!pageNumber) {
+    currentPage = pageNumber;
+    showList();
+  }
+}
+
+//update next page
+function nextPage() {
+  if (currentPage < lastPage) {
+    currentPage++;
+  }
+  showList();
+}
+
+//update previous page
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage = currentPage - 1;
+  }
+  showList();
+}
+
 //generate Employee list
 //generate Edit and delete button
 function showList() {
   document.getElementById("registration").style.display = "none";
   document.getElementById("list").style.display = "block";
 
-  var userList = document.getElementById("userList");
-  userList.innerHTML = ""; // Clear previous entries
   // Retrieve data from localStorage
   var existingData = JSON.parse(localStorage.getItem("formData")) || [];
   // Clear previous entries
@@ -232,6 +230,7 @@ function showList() {
     lastPage = searchPages;
     paginatedData = paginate(search, pageSize, currentPage);
   }
+
   // Create table rows for each filtered entry
   paginatedData.forEach(function (entry, index) {
     // existing code to create table rows
@@ -283,9 +282,11 @@ function showList() {
 }
 
 // Function to paginate the data
-function paginate(array, page_size, page_number) {
-  --page_number; // Adjust page number to 0-based index
-  return array.slice(page_number * page_size, (page_number + 1) * page_size);
+function paginate(array, pageSize, pageNumber) {
+  var paginateButton = document.createElement("button");
+  
+  --pageNumber; // Adjust page number to 0-based index
+  return array.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
 }
 // Function to open the edit modal with pre-filled data
 function openEditModal(id) {
